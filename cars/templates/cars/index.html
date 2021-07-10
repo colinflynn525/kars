@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Kars</title>
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+  <div>
+    <canvas id="kars" ></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+  <script>
+      // Any of the following formats may be used
+    var ctx = 'kars';
+    var kars = new Chart('kars', {
+        type: 'line',
+        data: {
+            labels: ['2021 - 0 miles', '2020 - 10000 miles', '2019 - 20000 miles', '2018 - 30000 miles', '2017 - 40000 miles', '2016 - 50000 miles'],
+            datasets: [
+                {% for dataset in datasets %}
+                    {
+                        label: "{{ dataset.label }}",
+                        data: {{ dataset.data }},
+                        backgroundColor: "{{ dataset.color }}",
+                        borderColor: "{{ dataset.color }}"
+                    },
+                {% endfor %}
+            ]
+        }, 
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+  </script>
+</body>
+</html>
